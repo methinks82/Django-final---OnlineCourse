@@ -95,14 +95,8 @@ class Enrollment(models.Model):
     rating = models.FloatField(default=5.0)
 
 
-# <HINT> Create a Question Model with:
-    # Used to persist question content for a course
-    # Has a One-To-Many (or Many-To-Many if you want to reuse questions) relationship with course
-    # Has a grade point for each question
-    # Has question content
-    # Other fields and methods you would like to design
 class Question(models.Model):
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
     question_text = models.TextField(max_length=200)
     grade = models.IntegerField(default = 1)
 
@@ -123,8 +117,9 @@ class Question(models.Model):
     # Indicate if this choice of the question is a correct one or not
     # Other fields and methods you would like to design
 class Choice(models.Model):
-    text = models.TextField(100)
-    is_correct = models.BinaryField(default = False)
+    choice_text = models.TextField(max_length=100)
+    #is_correct = models.BinaryField(default = False)
+    is_correct = models.IntegerField()
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
 # <HINT> The submission model
