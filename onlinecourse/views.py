@@ -146,8 +146,12 @@ def extract_answers(request):
         # Calculate the total score
 def show_exam_result(request, course_id, submission_id):
     context = {}
-
-    submission = Submission.objects.get(submission_id = submission_id)
+    
+    context['user'] = request.user
+    context['course'] = course_id
+    context['submission'] = submission_id
+    context['grade'] = 100
+    #submission = Submission.objects.get(submission_id = submission_id)
     #for choice in submission.choices_set:
 
     return render(request, 'onlinecourse/exam_result_bootstrap.html', context)
