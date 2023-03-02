@@ -111,17 +111,20 @@ def enroll(request, course_id):
          # Add each selected choice object to the submission object
          # Redirect to show_exam_result with the submission id
 def submit(request, course_id):
+
     user = request.user
-    course = Course.objects.get(course_id)
+    course = Course.objects.get(id = course_id)
     enrollment = Enrollment.objects.get(user=user, course=course)
     submission = Submission.objects.create(enrollment = enrollment)
     answers = extract_answers(request)
+
     for answer in answers:
         submission.choices.add(answer)
 
     submission.save()
+    submission_id = submission.id
 
-    return HttpResponseRedirect(reverse(viewname = 'show_exam_result', args = (course_id, submission_id,)))
+    return HttpResponseRedirect(reverse(viewname = 'onlinecourse:show_exam_result', args = (course_id, submission_id,)))
 
 
 # <HINT> A example method to collect the selected choices from the exam form from the request object
@@ -145,9 +148,9 @@ def show_exam_result(request, course_id, submission_id):
     context = {}
 
     submission = Submission.objects.get(submission_id = submission_id)
-    for choice in submission.choices_set:
+    #for choice in submission.choices_set:
 
-    return 
+    return render(request, 'onlinecourse/exam_result_bootstrap.html', context)
 
 
 

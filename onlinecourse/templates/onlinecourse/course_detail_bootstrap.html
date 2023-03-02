@@ -78,7 +78,7 @@
             -->
             {% if user.is_authenticated %}
             <!-- A choice submission form example -->
-            <form id="questionform" action="point to a submit view" method="post">
+            <form id="questionform" action="submit/" method="post">
                 <div class="btn btn-primary" type="button" data-toggle="collapse" data-target="#exam">Show exam</div>
                 <div class="collapse" id="exam">
                     {% for question in course.question_set.all %}
