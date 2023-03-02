@@ -118,7 +118,6 @@ class Question(models.Model):
     # Other fields and methods you would like to design
 class Choice(models.Model):
     choice_text = models.TextField(max_length=100)
-    #is_correct = models.BinaryField(default = False)
     is_correct = models.IntegerField()
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
