@@ -118,7 +118,8 @@ class Question(models.Model):
     # Other fields and methods you would like to design
 class Choice(models.Model):
     choice_text = models.TextField(max_length=100)
-    is_correct = models.IntegerField()
+    #is_correct = models.IntegerField()
+    is_correct = models.BooleanField()
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
 # <HINT> The submission model
