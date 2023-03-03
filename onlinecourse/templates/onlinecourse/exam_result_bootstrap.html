@@ -51,6 +51,18 @@
         <h5 class="">Exam results</h5>
             {% for question in course.question_set.all %}
                 <h3> {{ question.question_text }} </h3>
+                {% for choice in question.choice_set.all %}
+                <!--if choice = false && submitted = false : default 
+                    if choice = true && submitted = true : correct
+                    if choice = false && submitted = true : wrong
+                 -->
+                    {% if choice.is_correct %}
+                        <h4 style="color:green"> Correct answer: 
+                    {% else %}
+                        <h4> 
+                    {% endif %}
+                        {{ choice.choice_text }} </h4>
+                {% endfor %}
             {% endfor %}
         </div>
     </div>

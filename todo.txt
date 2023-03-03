@@ -1,0 +1,4 @@
+Calculate grade (views:show_exam_results)
+Display correct / wrong answers (templates/exam_result_bootstrap)
+? Add questions / answers to card? (templates/exam_result_bootstrap)
+Allow user to re-try (templates/exam_result_bootstrap)
