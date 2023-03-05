@@ -147,7 +147,36 @@ def show_exam_result(request, course_id, submission_id):
     context = {}
     
     #context['user'] = request.user
-    context['course'] = Course.objects.get(id = course_id)
+    course = Course.objects.get(id = course_id) 
+
+    questions = course.question_set.all()
+
+    submission = Submission.objects.get(id = submission_id)
+
+    answer_states = {}
+
+
+    for question in questions:
+        choices = question.choice_set.all()   
+        answers = submission.choices.all()
+
+        #selected_correct = question.choice_set.filter(is_correct=True, id__in=selected_ids).count()
+
+        print("question: " + question.question_text)
+
+        print("You selected ")
+        for answer in answers:
+            print (answer.choice_text)
+        print ("from")
+
+        for choice in choices:
+           
+            print(choice.choice_text)
+   
+    context['course'] = course
+    context['questions'] = questions
+    context['submission'] = submission
+
     #context['submission'] = submission_id
     context['grade'] = 50
     #submission = Submission.objects.get(submission_id = submission_id)

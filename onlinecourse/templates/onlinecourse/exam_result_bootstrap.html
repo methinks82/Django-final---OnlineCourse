@@ -56,6 +56,10 @@
                     if choice = true && submitted = true : correct
                     if choice = false && submitted = true : wrong
                  -->
+                    {% for a in choice.submission_set.get %}
+                        {{ a.id }}
+                    {% endfor %}
+
                     {% if choice.is_correct %}
                         <h4 style="color:green"> Correct answer: 
                     {% else %}
