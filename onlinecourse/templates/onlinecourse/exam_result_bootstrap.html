@@ -55,11 +55,6 @@
                 <div class ="card">         
                     <div class="card-header"> {{ question.question_text }} </div>
                     {% for choice in question.choice_set.all %}
-                    <!--if choice = false && submitted = false : default 
-                            if choice = true && submitted = true : correct
-                            if choice = false && submitted = true : wrong
-                    -->
-
                         {% if choice.is_correct %}
                             <h4 style="color:green"> Correct answer: 
                         {% else %}
