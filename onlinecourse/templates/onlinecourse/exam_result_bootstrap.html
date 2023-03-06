@@ -44,29 +44,30 @@
         {% else %}
         <div class="alert alert-danger">
             <b> Failed </b> Sorry {{ user.first_name}}! You have failed the exam with score {{grade}} / 100
+            <br><a class="btn btn-link text-danger" href="{% url 'onlinecourse:course_details' course.id %}">Re-test</a>
+
         </div>
 
         {% endif %}
         <div class="card-columns-vertical mt-1">
         <h5 class="">Exam results</h5>
-            {% for question in course.question_set.all %}
-                <h3> {{ question.question_text }} </h3>
-                {% for choice in question.choice_set.all %}
-                <!--if choice = false && submitted = false : default 
-                    if choice = true && submitted = true : correct
-                    if choice = false && submitted = true : wrong
-                 -->
-                    {% for a in choice.submission_set.get %}
-                        {{ a.id }}
-                    {% endfor %}
+            {% for question in course.question_set.all %}   
+                <div class ="card">         
+                    <div class="card-header"> {{ question.question_text }} </div>
+                    {% for choice in question.choice_set.all %}
+                    <!--if choice = false && submitted = false : default 
+                            if choice = true && submitted = true : correct
+                            if choice = false && submitted = true : wrong
+                    -->
 
-                    {% if choice.is_correct %}
-                        <h4 style="color:green"> Correct answer: 
-                    {% else %}
-                        <h4> 
-                    {% endif %}
-                        {{ choice.choice_text }} </h4>
-                {% endfor %}
+                        {% if choice.is_correct %}
+                            <h4 style="color:green"> Correct answer: 
+                        {% else %}
+                            <h4> 
+                        {% endif %}
+                            {{ choice.choice_text }} </h4>
+                    {% endfor %}            
+                </div>
             {% endfor %}
         </div>
     </div>

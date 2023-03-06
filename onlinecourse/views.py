@@ -153,16 +153,20 @@ def show_exam_result(request, course_id, submission_id):
 
     submission = Submission.objects.get(id = submission_id)
 
-    answer_states = {}
-
-
+ 
+    grade = 0.0
     for question in questions:
         choices = question.choice_set.all()   
         answers = submission.choices.all()
-
-        #selected_correct = question.choice_set.filter(is_correct=True, id__in=selected_ids).count()
+        is_correct = question.is_get_score(answers.values_list('id', flat=True))
 
         print("question: " + question.question_text)
+
+        if is_correct:
+            print("You got it!")
+            grade = grade + 1.0
+        else:
+            print("Sorry, wrong")
 
         print("You selected ")
         for answer in answers:
@@ -173,14 +177,11 @@ def show_exam_result(request, course_id, submission_id):
            
             print(choice.choice_text)
    
+
     context['course'] = course
     context['questions'] = questions
     context['submission'] = submission
-
-    #context['submission'] = submission_id
-    context['grade'] = 50
-    #submission = Submission.objects.get(submission_id = submission_id)
-    #for choice in submission.choices_set:
+    context['grade'] = int(grade / questions.count() * 100) #convert to score
 
     return render(request, 'onlinecourse/exam_result_bootstrap.html', context)
 
